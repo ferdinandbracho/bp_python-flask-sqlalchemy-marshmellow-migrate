@@ -28,4 +28,4 @@
 
 
 - When Flask App running explore and interact with the API Docs in swagger using the route:
-    - "http://0.0.0.0:5000/docs"# bp_python-flask-sqlalchemy-marshmellow-migrate
+    - "http://0.0.0.0:5000/docs"#
