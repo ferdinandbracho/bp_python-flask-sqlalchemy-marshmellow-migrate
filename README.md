@@ -73,7 +73,7 @@ Please ensure you update this README after implementing an instance of this temp
 In your README's "Introduction and/or Overview" section (or similar), include the following information:
 
 ```markdown
-The service is built based on the [fastAPI MS Template](https://github.com/ferdinandbracho/bp_python-flask-sqlalchemy-marshmellow-migrate). For comprehensive technical details, instructions on how to run, deploy, and any other related considerations, please refer to the documentation provided in the [template repository](https://github.com/ferdinandbracho/bp_python-flask-sqlalchemy-marshmellow-migrate).
+The service is built based on the [flask MS Template](https://github.com/ferdinandbracho/bp_python-flask-sqlalchemy-marshmellow-migrate). For comprehensive technical details, instructions on how to run, deploy, and any other related considerations, please refer to the documentation provided in the [template repository](https://github.com/ferdinandbracho/bp_python-flask-sqlalchemy-marshmellow-migrate).
 ```
 
 ### Indeed Information
