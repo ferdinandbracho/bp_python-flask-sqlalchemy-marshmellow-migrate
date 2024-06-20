@@ -1,0 +1,398 @@
+openapi: 3.0.3
+info:
+  title: title
+  description: |-
+    ## Description
+  version: "1.0"
+  contact:
+    name: "Ferdinand Bracho"
+    url: "https://github.com/FerdinandBracho"
+    email: "ferdinand.bracho@traxi.mx"
+
+
+servers:
+  - url: "/api/dev"
+    description: Development environment
+
+paths:
+  /station:
+    post:
+      tags:
+        - Stations
+      summary: Create Station
+      description: |-
+        ## Create a station instance and return id, if stations with same latitude/longitude is related with same client_id it return the station id
+
+        **Body: Field indicated with * are required**
+
+            *client_id:
+              int: A valid client id
+
+            *name:
+              string
+
+            geofence_radius:
+              int
+
+            *latitude:
+              string
+
+            *longitude:
+              string
+
+            address:
+              string
+
+        **Return**
+
+            Record id
+
+      operationId: app.api.stations.create_station
+      requestBody:
+          required: true
+          x-body-name: 'station'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StationCreate'
+      responses:
+        "201":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /station/{station_id}:
+    get:
+      tags:
+        - Stations
+      summary: Retrieve Station
+      description: |-
+        ## Retrieve details of indicated station
+
+        **Path params: field indicate with * are required:**
+
+            *stations_id:
+                string (uuid): the station id to retrieve
+
+        **Return:**
+
+            Indicated stations details
+      operationId: app.api.stations.retrieve_station
+      parameters:
+        - required: true
+          schema:
+            title: Station Id
+            type: string
+            format: uuid
+          name: station_id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Stations
+      summary: Delete Station
+      description: |-
+        ## Delete the specified station
+
+        **Path param: field indicate with * are required:**
+
+            *stations_id:
+                string (uuid): the station id to retrieve
+
+        **Return:**
+
+            Delete result
+      operationId: app.api.stations.delete_station
+      parameters:
+        - required: true
+          schema:
+            title: Station Id
+            type: string
+            format: uuid
+          name: station_id
+          in: path
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                properties:
+                  is_delete:
+                    type: boolean
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Stations
+      summary: Update Station
+      description: |-
+        ## Update the specified station
+
+        **Body: Field indicated with * are required**
+
+            name:
+              string
+
+            geofence_radius:
+              int
+
+            *latitude:
+              string
+
+            *longitude:
+              string
+
+            address:
+              string
+
+        **Return:**
+
+            Updated station
+      operationId: app.api.stations.update_station
+      parameters:
+        - required: true
+          schema:
+            title: Station Id
+            type: string
+            format: uuid
+          name: station_id
+          in: path
+      requestBody:
+        x-body-name: 'data_to_update'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StationUpdate'
+        required: true
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /stations:
+    get:
+      tags:
+        - Stations
+      summary: Get Stations
+      description: |-
+        ## Return a paginated list of stations scoped by indicated client
+
+          **Query param: field indicate with * are required:**
+
+            client_id:
+              int: Valid client id to filter list base on client
+
+            page:
+              int: Number of page to return
+
+            limit:
+              int: limit of records per page, default to 50
+
+          **Return**
+            List of stations
+      operationId: app.api.stations.list_stations
+      parameters:
+        - name: client_id
+          description: Valid client id
+          required: true
+          schema:
+            title: Client Id
+            type: integer
+          in: query
+        - name: page
+          description: Page to return
+          required: true
+          schema:
+            default: 1
+            title: Page
+            type: integer
+          in: query
+        - name: limit
+          description: Limit of value in page
+          required: true
+          schema:
+            title: Limit
+            default: 50
+            type: integer
+          in: query
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Station:
+      title: Station
+      type: object
+      required:
+        - id
+        - is_active
+        - client_id
+        - name
+        - geofence_radius
+        - latitude
+        - longitude
+        - address
+        - created_at
+        - last_update
+      properties:
+        id:
+          title: Id
+          type: string
+        active:
+          title: Active
+          type: boolean
+        client_id:
+          title: Client Id
+          type: integer
+        name:
+          title: Name
+          type: string
+        geofence_radius:
+          title: geofence Radius
+          type: integer
+        geojson:
+          title: Geojson
+          type: object
+        latitude:
+          title: Latitude
+          type: string
+        longitude:
+          title: Longitude
+          type: string
+        address:
+          title: Address
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          type: string
+          format: date-time
+
+    StationCreate:
+      title: StationCreate
+      type: object
+      required:
+        - client_id
+        - latitude
+        - longitude
+        - name
+      properties:
+        client_id:
+            title: Client Id
+            type: integer
+        name:
+          title: Name
+          type: string
+        geofence_radius:
+          title: geofence Radius
+          type: integer
+          default: 10
+        latitude:
+          title: Latitude
+          type: string
+        longitude:
+          title: Longitude
+          type: string
+        address:
+          title: Address
+          type: string
+
+    StationUpdate:
+      title: StationUpdate
+      type: object
+      properties:
+        name:
+          title: Name
+          type: string
+        geofence_radius:
+          title: geofence Radius
+          type: integer
+          default: 10
+        address:
+          title: Name
+          type: string
+        latitude:
+          title: Latitude
+          type: string
+        longitude:
+          title: Longitude
+          type: string
+        description:
+          title: Latitude
+          type: string
+        active:
+          title: Active
+          type: boolean
+
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          title: code
+          type: string
+        message:
+          title: message
+          type: string
