@@ -1,8 +1,21 @@
-Here's the README with proper Markdown formatting:
+Here's the README with an index added in Markdown format:
 
 # Boiler Plate for Flask, SQLAlchemy, Marshmallow-Flask, and Flask-Migrate
 
 This project serves as a boilerplate for building scalable web applications using Flask, SQLAlchemy, Marshmallow-Flask, and Flask-Migrate. It is designed to kickstart development by providing a structured framework that includes user authentication, database migrations, and API documentation using Swagger.
+
+## **Table of Contents**
+
+- [Installation](#installation)
+  - [Option 1: Using a Virtual Environment](#option-1-using-a-virtual-environment)
+  - [Option 2: Using Docker](#option-2-using-docker)
+- [Usage](#usage)
+- [Features](#features)
+- [Documentation](#documentation)
+  - [Introduction and Overview](#1-introduction-and-overview)
+  - [Indeed Information](#indeed-information)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
 
 ## **Installation**
 
@@ -50,6 +63,27 @@ Once the Flask app is running, you can explore and interact with the API documen
 - **Database Migrations**: Easily manage database schema changes using Flask-Migrate.
 - **API Documentation**: Auto-generated API documentation with Swagger UI.
 - **Environment Configuration**: Manage application settings securely using environment variables.
+
+## **Documentation**
+
+Please ensure you update this README after implementing an instance of this template. Here are the recommended steps to follow:
+
+### 1. Introduction and Overview
+
+In your README's "Introduction and/or Overview" section (or similar), include the following information:
+
+```markdown
+The service is built based on the [fastAPI MS Template](https://github.com/ferdinandbracho/bp_python-flask-sqlalchemy-marshmellow-migrate). For comprehensive technical details, instructions on how to run, deploy, and any other related considerations, please refer to the documentation provided in the [template repository](https://github.com/ferdinandbracho/bp_python-flask-sqlalchemy-marshmellow-migrate).
+```
+
+### Indeed Information
+
+Towards the end of your README, just before the "Contributing" section (if applicable), add links to specific sections of the template repository for Indeed Information:
+
+```markdown
+## Indeed Information
+For detailed information on installation and prerequisites, please refer to the [template repository](https://github.com/ferdinandbracho/bp_fastAPI-sqlalchemy-alembic-docker).
+```
 
 ## **Contributing**
 
